@@ -1,6 +1,6 @@
 const connect = require('./client')
 const query = require('./query')
-const { PageNode, ApartmentNode, ImageNode } = require('./nodes')
+const { ImageNode } = require('./nodes')
 
 exports.sourceNodes = ({ actions }, { uri, key, account }) => {
   const { createNode } = actions
@@ -10,19 +10,9 @@ exports.sourceNodes = ({ actions }, { uri, key, account }) => {
 
   return client.query({ query, variables }).then(({ data }) => {
     data.pages.items.forEach(page => {
-      const pageNode = PageNode(page)
-      createNode(pageNode)
-
       page.apartments.items.forEach(apartment => {
-        const apartmentNode = ApartmentNode(apartment, {
-          parent: pageNode.id
-        })
-        createNode(apartmentNode)
-
         if (apartment.defaultPhoto) {
-          createNode(ImageNode(apartment.defaultPhoto, {
-            parent: apartmentNode.id
-          }))
+          createNode(ImageNode(apartment.defaultPhoto))
         }
       })
     })
