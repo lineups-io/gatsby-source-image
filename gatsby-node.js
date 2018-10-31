@@ -13,7 +13,7 @@ exports.sourceNodes = ({ actions }, { uri, key, account }) => {
       page.apartments.items.forEach(apartment => {
         if (apartment.defaultPhoto) {
           createNode(ImageNode({
-            pageId: page.id
+            pageId: page.id,
             ...apartment.defaultPhoto
           }))
         }
