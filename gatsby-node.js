@@ -8,6 +8,8 @@ exports.sourceNodes = ({ actions }, { uri, key, account }) => {
   const client = connect(uri, key)
   const variables = { account, offset: 0, limit: 20 }
 
+  let created = 0
+
   return client.query({ query, variables }).then(({ data }) => {
     data.pages.items.forEach(page => {
       page.apartments.items.forEach(apartment => {
@@ -16,8 +18,12 @@ exports.sourceNodes = ({ actions }, { uri, key, account }) => {
             pageId: page.id,
             ...apartment.defaultPhoto
           }))
+
+          created += 1
         }
       })
     })
+
+    console.log('[gatsby-source-image]', created, 'nodes created')
   })
 }
