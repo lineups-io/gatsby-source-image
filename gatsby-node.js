@@ -2,11 +2,12 @@ const connect = require('./client')
 const query = require('./query')
 const { ImageNode } = require('./nodes')
 
+// FIXME: iterate until all pages have been processed
 exports.sourceNodes = ({ actions }, { uri, key, account }) => {
   const { createNode } = actions
 
   const client = connect(uri, key)
-  const variables = { account, offset: 0, limit: 20 }
+  const variables = { account, offset: 0, limit: 50 }
 
   let created = 0
 
