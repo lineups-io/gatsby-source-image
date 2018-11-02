@@ -15,10 +15,7 @@ exports.sourceNodes = ({ actions }, { uri, key, account }) => {
     data.pages.items.forEach(page => {
       page.apartments.items.forEach(apartment => {
         if (apartment.defaultPhoto) {
-          createNode(ImageNode({
-            pageId: page.id,
-            ...apartment.defaultPhoto
-          }))
+          createNode(ImageNode(apartment.defaultPhoto))
 
           created += 1
         }
