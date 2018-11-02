@@ -7,7 +7,7 @@ exports.sourceNodes = ({ actions }, { uri, key, account }) => {
   const { createNode } = actions
 
   const client = connect(uri, key)
-  const variables = { account, offset: 0, limit: 50 }
+  const variables = { account }
 
   let created = 0
 
